@@ -1,1 +1,86 @@
-<p>supplier-add-or-update works!</p>
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-6 offset-md-3 shadow-lg p-3">
+      <div class="title text-center">
+        <h3 class="text-center text-light bg-primary py-1">Supplier Form</h3>
+      </div>
+      <form [formGroup]="supplierForm" (ngSubmit)="CreateSupplier()">
+        <div class="row g-2">
+          @if(isEdit){
+          <div>
+            <label class="form-label">Supplier Id</label>
+            <input
+              type="number"
+              class="form-control"
+              formControlName="supplierId"
+              readonly
+            />
+          </div>
+          }
+          <div>
+            <label class="form-label">Supplier Name <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              [class]="{
+                'is-invalid':
+                  supplierForm.controls.supplierName.touched &&
+                  supplierForm.controls.supplierName.errors
+              }"
+              formControlName="supplierName"
+            />
+          </div>
+          <div>
+            <label class="form-label">Phone <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              [class]="{
+                'is-invalid':
+                  supplierForm.controls.phone.touched &&
+                  supplierForm.controls.phone.errors
+              }"
+              formControlName="phone"
+            />
+          </div>
+          <div>
+            <label class="form-label">Address <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              [class]="{
+                'is-invalid':
+                  supplierForm.controls.address.touched &&
+                  supplierForm.controls.address.errors
+              }"
+              formControlName="address"
+            />
+          </div>
+          <div class="mt-2">
+            @if(isEdit){
+            <input
+              type="submit"
+              class="btn btn-sm btn-warning"
+              value="Update"
+              [disabled]="supplierForm.invalid"
+            />
+            }@else {
+            <input
+              type="submit"
+              class="btn btn-sm btn-primary"
+              value="Submit"
+              [disabled]="supplierForm.invalid"
+            />
+            }
+            <input
+              type="button"
+              class="btn btn-sm btn-success ms-2"
+              value="Back To List"
+              routerLink="/supplier"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,47 @@
-<p>supplier-list works!</p>
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="mb-2">
+        <input
+          class="btn btn-sm btn-primary"
+          type="button"
+          value="New Supplier +"
+          routerLink="/supplier/add"
+        />
+      </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Supplier Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>--Action--</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(supplier of supplierList; track supplier.supplierId){
+          <tr>
+            <td>{{ supplier.supplierName }}</td>
+            <td>{{ supplier.phone }}</td>
+            <td>{{ supplier.address }}</td>
+            <td>
+              <input
+                type="button"
+                value="Edit"
+                class="btn btn-sm btn-warning"
+                routerLink="/supplier/edit/{{ supplier.supplierId }}"
+              />
+              <input
+                type="button"
+                value="Delete"
+                class="btn btn-sm btn-danger ms-2"
+                (click)="DeleteSupplier(supplier.supplierId)"
+              />
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

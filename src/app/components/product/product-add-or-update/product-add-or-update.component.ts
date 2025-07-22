@@ -40,10 +40,10 @@ constructor(
     this.productForm = this.formBuilder.group({
       productId: [0],
       productName: ['', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       unitPrice: [0,[Validators.required, Validators.min(1)]],
       reorderLevel: [0, Validators.required],
-      stockQuantity: ['', [Validators.required]]
+      stockQuantity: [0]
     });
   }
 
@@ -63,7 +63,7 @@ constructor(
     });
   }
 
-  // create new lavel or floor
+  // create new product or update
   CreateProduct() {
     if (this.productForm.value.productId > 0) {
       this.productService

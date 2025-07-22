@@ -11,8 +11,7 @@ import { ProductService } from '../../../services/product.service';
 })
 export class ProductListComponent implements OnInit{
  constructor(
-    private productService: ProductService,
-    private router: Router
+    private productService: ProductService
   ) {}
 
   ngOnInit(): void {
