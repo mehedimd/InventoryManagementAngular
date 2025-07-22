@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="mb-2">
+        <input
+          class="btn btn-sm btn-primary"
+          type="button"
+          value="New Product"
+          routerLink="/product/add"
+        />
+      </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Unit Price</th>
+            <th>Reorder Level</th>
+            <th>Stock Quantity</th>
+            <th>--Action--</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(product of productList; track product.productId){
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.unitPrice }}</td>
+            <td>{{ product.reorderLevel }}</td>
+            <td>{{ product.stockQuantity }}</td>
+            <td>
+              <input
+                type="button"
+                value="Edit"
+                class="btn btn-sm btn-warning"
+                routerLink="/product/edit/{{ product.productId }}"
+              />
+              <input
+                type="button"
+                value="Delete"
+                class="btn btn-sm btn-danger ms-2"
+                (click)="DeleteProduct(product.productId)"
+              />
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
