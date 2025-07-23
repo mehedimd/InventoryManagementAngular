@@ -7,6 +7,7 @@ import {
 } from '@angular/material/dialog';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../../services/product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-add-or-update',
@@ -71,18 +72,43 @@ constructor(
         .subscribe({
           next: (res) => {
             console.log(res);
+            Swal.fire({
+            icon: 'success',
+            title: 'Product Updated',
+            text: 'Product updated successfully!',
+            timer: 2000,
+            showConfirmButton: false
+          });
             this.router.navigate(['/product']);
           },
-          error: (e) => console.log(e),
+          error: (e) => {
+            console.log(e)
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: 'Something went wrong while updating.'
+          });
+        },
         });
     } else {
       this.productService.Create(this.productForm.value).subscribe({
         next: (data) => {
-          console.log(data);
+           Swal.fire({
+          icon: 'success',
+          title: 'Product Added',
+          text: 'Product added successfully!',
+          timer: 2000,
+          showConfirmButton: false
+        });
           this.router.navigate(['/product']);
         },
         error: (e) => {
           console.log(e);
+          Swal.fire({
+          icon: 'error',
+          title: 'Add Failed',
+          text: 'Something went wrong while adding the product.'
+        });
         },
       });
     }

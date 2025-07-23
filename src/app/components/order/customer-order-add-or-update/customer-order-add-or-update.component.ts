@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CustomerOrderService } from '../../../services/customer-order.service';
 import { CustomerOrderItemComponent } from '../customer-order-item/customer-order-item.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-order-add-or-update',
@@ -87,32 +88,58 @@ export class CustomerOrderAddOrUpdateComponent {
   // Create Order
   createOrder() {
     if (this.orderService.orderItems.length == 0) {
-      alert('Please Order At Least 1 Item!');
+      Swal.fire({
+        icon: 'warning',
+        title: 'No Items',
+        text: 'Please order at least 1 item!',
+      });
     } else {
       if (this.orderForm.value.customerOrderId > 0) {
         this.orderService
           .Update(this.orderForm.value.customerOrderId, this.orderForm.value)
           .subscribe({
             next: (res) => {
+              Swal.fire({
+              icon: 'success',
+              title: 'Order Updated',
+              text: 'Customer order has been updated successfully!',
+              timer: 2000,
+              showConfirmButton: false,
+            });
               console.log(res);
               this.router.navigate(['/customer/order']);
               this.resetOrderForm();
             },
             error: (e) => {
               console.log(e);
-              alert(e.error.message);
+              Swal.fire({
+              icon: 'error',
+              title: 'Update Failed',
+              text: e.error.message || 'Something went wrong!',
+            });
             },
           });
       } else {
         this.orderService.Create(this.orderForm.value).subscribe({
           next: (res) => {
+            Swal.fire({
+            icon: 'success',
+            title: 'Order Placed',
+            text: 'Customer order has been created successfully!',
+            timer: 2000,
+            showConfirmButton: false,
+          });
             console.log(res);
             this.router.navigate(['/customer/order']);
             this.resetOrderForm();
           },
           error: (e) => {
               console.log(e);
-              alert(e.error.message);
+              Swal.fire({
+            icon: 'error',
+            title: 'Creation Failed',
+            text: e.error.message || 'Something went wrong!',
+          });
           },
         });
       }
