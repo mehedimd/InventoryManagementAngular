@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+      <div class="mb-2">
+        <input
+          class="btn btn-sm btn-primary"
+          type="button"
+          value="New Order +"
+          routerLink="/customer/order/add"
+        />
+      </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Order No.</th>
+            <th>Cusomer Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>--Action--</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(item of allOrderList; track item.customerOrderId){ 
+          <tr>
+            <td
+              (click)="orderDetails(item.customerOrderId)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{ item.orderNo }}
+            </td>
+            <td
+              (click)="orderDetails(item.customerOrderId)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{ item.customerName }}
+            </td>
+            <td
+              (click)="orderDetails(item.customerOrderId)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+                {{item.phone}}
+            </td>
+            <td
+              (click)="orderDetails(item.customerOrderId)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{ item.address }}
+            </td>
+            <td
+              (click)="orderDetails(item.customerOrderId)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{item.orderDate | date }}
+            </td>
+            <td
+              (click)="orderDetails(item.customerOrderId)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              {{item.totalAmount}}
+            </td>
+            
+            <td>
+              <button
+                routerLink="/customer/order/edit/{{ item.customerOrderId }}"
+                class="btn btn-warning btn-sm"
+              >
+                Edit
+              </button>
+              <button
+                (click)="deleteOrder(item.customerOrderId)"
+                class="btn btn-danger btn-sm ms-lg-2 mt-2 mt-lg-0"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- // modal order details  -->
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title fs-5" id="exampleModalLabel">
+          Pharmacy : {{ order.pharmacyName }}
+        </h3>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <thead class="bg-danger">
+            <tr>
+              <td>Product</td>
+              <td>Quantity</td>
+              <td>Total</td>
+            </tr>
+          </thead>
+          <tbody>
+            @for(item of orderItems; track item.id){
+            <tr>
+              <td>
+                {{ item.productName }}
+              </td>
+              <td>{{ item.quantity }} {{ item.unitName }}</td>
+              <td>
+                {{ item.price }}
+              </td>
+            </tr>
+            }
+            <tr>
+              <td colspan="2">Grand Total:</td>
+
+              <td>{{ order.grandTotal }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

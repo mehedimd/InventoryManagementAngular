@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+        <div class="mb-2 text-center">
+            <h4 class="text-success fw-bold">Top-Selling Product<hr></h4>
+        </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Total Sold Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(product of productList; track product.productId){
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.totalQuantitySold }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

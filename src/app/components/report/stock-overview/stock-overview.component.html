@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row py-3">
+    <div class="col-md-10 offset-md-1">
+        <div class="mb-2 text-center">
+            <h4 class="text-success fw-bold">Stock Overview <hr></h4>
+        </div>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Reorder Level</th>
+            <th>Stock Quantity</th>
+            <th>Stock Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(product of stockOverviewList; track product.productId){
+          <tr>
+            <td>{{ product.productName }}</td>
+            <td>{{ product.reorderLevel }}</td>
+            <td>{{ product.stockQuantity }}</td>
+            <td [className]="product.stockStatus == 'OK'? 'text-primary': 'text-danger'">{{ product.stockStatus }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

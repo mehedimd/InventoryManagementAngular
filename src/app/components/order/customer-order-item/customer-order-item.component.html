@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 shadow-lg p-5">
+      <div class="title text-center">
+        <h3 class="text-center text-light bg-primary py-1">Order Item</h3>
+      </div>
+
+            <form [formGroup]="orderItemForm" (ngSubmit)="addOrderItem()">
+                <div class="row g-2">
+                <div class="form-group col-md-6">
+                    <label>Product</label>
+                    <select
+                    class="form-select"
+                    [class]="{
+                        'is-invalid':
+                        orderItemForm.controls.productId.touched &&
+                        orderItemForm.controls.productId.errors
+                    }"
+                    (change)="updatePrice($event)"
+                    formControlName="productId"
+                    >
+                    <option value="">--Select Product--</option>
+                    @for(product of allProducts; track product.productId){
+                    <option value="{{ product.productId }}">
+                        {{ product.productName }}
+                    </option>
+                    }
+                    </select>
+                    @if(orderItemForm.controls.productId.errors){
+                    <div class="invalid-feedback">
+                    @if(orderItemForm.controls.productId.errors['required']){
+                    <div>this field is required</div>
+                    }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>In Stock</label>
+                    <input
+                    class="form-control"
+                    type="text"
+                    [value]="stockQuantity"
+                    readonly
+                    />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Unit Price</label>
+                    <input
+                    class="form-control"
+                    type="text"
+                    formControlName="unitPrice"
+                    readonly
+                    />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Quantity</label>
+                    <input
+                    class="form-control"
+                    type="number"
+                    formControlName="quantity"
+                    (input)="updateTotal()"
+                    [class]="{
+                        'is-invalid':
+                        orderItemForm.controls.quantity.touched &&
+                        orderItemForm.controls.quantity.errors
+                    }"
+                    />
+                    @if(orderItemForm.controls.quantity.errors){
+                    <div class="invalid-feedback">
+                    @if(orderItemForm.controls.quantity.errors['required']){
+                    <div>this field is required</div>
+                    } @if(orderItemForm.controls.quantity.errors['min']){
+                    <div>order minimum 1 quantity</div>
+                    }
+                    </div>
+                    }
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Sub Total</label>
+                    <input
+                    class="form-control"
+                    type="text"
+                    formControlName="subTotal"
+                    readonly
+                    />
+                </div>
+                <div class="col-md-12">
+                    <button
+                    class="btn btn-sm btn-primary"
+                    type="submit"
+                    [disabled]="orderItemForm.invalid"
+                    >
+                    Save
+                    </button>
+                    <button type="button" class="btn btn-sm btn-secondary ms-2" [mat-dialog-close]>
+                    close
+                    </button>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
