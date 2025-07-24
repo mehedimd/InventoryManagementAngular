@@ -56,6 +56,7 @@ export class CustomerOrderItemComponent implements OnInit{
         const matchedProduct = this.allProducts.find((p : any) => p.productId == productId);
         if (matchedProduct) {
           this.stockQuantity = matchedProduct.stockQuantity;
+          this.stockQuantity += this.orderService.orderItems[this.data.itemIndex].quantity;
         }
       }
       },
@@ -104,8 +105,9 @@ export class CustomerOrderItemComponent implements OnInit{
       });
       return;
     }
+    console.log(this.orderItemForm.value);
+    if (this.orderItemForm.value.quantity > this.orderItemForm.value.reorderLevel) {
 
-    if (this.stockQuantity < this.orderItemForm.value.reorderLevel) {
       Swal.fire({
         icon: 'warning',
         title: '⚠️ Low Stock Warning',

@@ -102,7 +102,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title fs-5" id="exampleModalLabel">
-          Pharmacy : {{ order.pharmacyName }}
+          Order No. : {{ order.orderNo }} <br>
+          Customer : {{ order.customerName }}
         </h3>
       </div>
 
@@ -110,8 +111,9 @@
         <table class="table table-bordered">
           <thead class="bg-danger">
             <tr>
-              <td>Product</td>
+              <td>Product ID</td>
               <td>Quantity</td>
+              <td>Unit Price</td>
               <td>Total</td>
             </tr>
           </thead>
@@ -119,18 +121,19 @@
             @for(item of orderItems; track item.id){
             <tr>
               <td>
-                {{ item.productName }}
+                {{ item.productId }}
               </td>
-              <td>{{ item.quantity }} {{ item.unitName }}</td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.unitPrice }}</td>
               <td>
-                {{ item.price }}
+                {{ item.subTotal }}
               </td>
             </tr>
             }
             <tr>
-              <td colspan="2">Grand Total:</td>
+              <td colspan="3">Grand Total:</td>
 
-              <td>{{ order.grandTotal }}</td>
+              <td>{{ order.totalAmount }}</td>
             </tr>
           </tbody>
         </table>
