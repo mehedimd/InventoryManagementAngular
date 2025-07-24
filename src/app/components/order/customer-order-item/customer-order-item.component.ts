@@ -106,7 +106,7 @@ export class CustomerOrderItemComponent implements OnInit{
       return;
     }
     console.log(this.orderItemForm.value);
-    if (this.orderItemForm.value.quantity > this.orderItemForm.value.reorderLevel) {
+    if ((this.stockQuantity -this.orderItemForm.value.quantity) < this.orderItemForm.value.reorderLevel) {
 
       Swal.fire({
         icon: 'warning',
